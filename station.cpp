@@ -54,6 +54,29 @@ string Station::line_name(const int & line){
 	}
 }
 
+vector<string> Station::line_names(){
+	vector<string> names;
+	for(vector<int>::iterator it = lines.begin();it != lines.end();++it)
+                names.push_back(line_name(*it));
+	return names;
+}
+/*
+Station * Station::get_station_at(const vector<Station *> & station_list, const int & index){
+	return station_list[index];
+}
+*/
+int Station::get_station_index(){
+	return index;
+}
+
+const vector<int> & Station::get_station_lines(){
+	return lines;
+}
+
+const vector<int> & Station::get_station_next_station(){
+        return next_station;
+}
+/*
 void Station::print_station_info(){
 	cout<<"======================================="<<endl;
 	cout<<"Index: "<<index<<endl;
@@ -67,4 +90,4 @@ void Station::print_station_info(){
 	for(vector<int>::iterator it = next_station.begin();it != next_station.end();++it)
 		cout<<*it<<" ";
 	cout<<endl;
-}
+}*/
