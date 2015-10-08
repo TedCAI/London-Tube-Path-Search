@@ -185,7 +185,6 @@
 184	Bruce Grove	158,215	14
 185	Barkingside	160,216	2
 186	Chigwell	161,217	2
-187	Buckhurst Hill	162,218	2
 188	Chadwell Heath	164,219	15
 189	Dagenham Heathway	165,220	4
 190	Beckton Park	166,221	12
