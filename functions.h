@@ -24,3 +24,6 @@ void all_station_at(const int & line, vector<Station *> & match_station_list, co
 vector<Station *> station_search_by_line(const int & line, const vector<Station *> & search_list);
 void search_by_line(const vector<Station *> & search_list, const vector<Station *> & original_list);
 void mode_selection(const vector<Station *> & search_list, const vector<Station *> & original_list);
+bool station_validation(const vector<Station *> station_list, const int & station_index);
+void tube_path_search(const vector<Station *> & station_list);
+bool station_validation(const vector<Station *> station_list, const int & station_index);

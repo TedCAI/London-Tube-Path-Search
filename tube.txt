@@ -74,7 +74,7 @@
 73	East India	46,105	12
 74	Temple	31,50	3,4
 75	Russell Square	51,60	9
-76	Oxford Circus	51,55,80,82,106,107	1,2,10
+76	Oxford Circus	51,55,80,82,107,390	1,2,10
 77	Covent Garden	51,83	9
 78	Stockwell	53,108,109,110	8,14
 79	Victoria	54,55,111,146	3,4,10
@@ -104,7 +104,7 @@
 103	Custom House for ExCel	70,136	12
 104	Pontoon Dock	71,137	12
 105	Blackwall	73,86	12
-106	Baker Street	76,82,120,138,139,140,141	1,3,5,6,7
+106	Baker Street	82,120,138,139,140,141,390	1,3,5,6,7
 107	Warren Street	76,89,142	8,10
 108	Clapham High Street(Clapham North)	78,143,144,145	8,14
 109	Vauxhall	78,146	10
@@ -385,3 +385,4 @@
 387	Sudbury Town	385,389	9
 388	Park Royal	386,389	9
 389	Alperton	387,388	9
+390	Regent's Park	76,106	1
