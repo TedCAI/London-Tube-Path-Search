@@ -6,6 +6,8 @@
 #include <stdio.h>
 #include "station.h"
 
+Station::Station(){}
+
 Station::Station(const int & index, const string & station_name, const vector<int> & next,const vector<int> & in_lines){
 	this->index = index;
 	name = station_name;
@@ -13,7 +15,14 @@ Station::Station(const int & index, const string & station_name, const vector<in
 	lines = in_lines;
 }
 
-string Station::get_station_name(){
+Station::Station(const Station & s){
+	index = s.get_station_index();
+	name = s.get_station_name();
+	next_station = s.get_station_next_station();
+	lines = s.get_station_lines();
+}
+
+string Station::get_station_name() const{
 	return name;
 }
 
@@ -65,15 +74,15 @@ Station * Station::get_station_at(const vector<Station *> & station_list, const 
 	return station_list[index];
 }
 */
-int Station::get_station_index(){
+int Station::get_station_index() const{
 	return index;
 }
 
-const vector<int> & Station::get_station_lines(){
+vector<int> Station::get_station_lines() const{
 	return lines;
 }
 
-const vector<int> & Station::get_station_next_station(){
+vector<int> Station::get_station_next_station() const{
         return next_station;
 }
 /*
