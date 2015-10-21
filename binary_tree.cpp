@@ -130,9 +130,9 @@ public:
 			return parent_node;
 		}
 		else{
-//			cout<<"parent_node father "<<parent_node->father<<endl;
+			cout<<"parent_node father "<<parent_node->father<<endl;
 			_hot = parent_node;
-//			cout<<"_hot father "<<_hot->father<<endl;
+			cout<<"_hot father "<<count<<endl;
 			return search_tree(value, (value < parent_node->data) ? parent_node->lhs : parent_node->rhs, _hot);
 		}
 	}
@@ -230,6 +230,7 @@ public:
         }
 
 	void find_depth_in(node<T> *parent, int & depth, const int & init_depth){
+//		cout<<"find_depth_in "<<parent<<endl;
 		if(parent){
 			if((parent->height - init_depth) > depth)
 				depth = parent->height - init_depth;
@@ -238,12 +239,15 @@ public:
 		}
 	}
 
-	int find_depth(node<T> *parent, const int & mode = 1){
+	int find_depth(node<T> *parent, int mode = 1){
 		//mode 1: depth from root
 		//mode 0: depth from current node
-		int init_depth = (mode) ? 0 : parent->height;
+//		cout<<parent<<endl;
+		int init_depth = (mode || !parent) ? 0 : parent->height;
+		cout<<"init_depth "<<init_depth<<endl;
 		int depth = 0;
 		find_depth_in(parent, depth, init_depth);
+//		cout<<parent->data<<" depth is "<<depth<<endl;
 		return depth;
 	}
 
@@ -261,34 +265,64 @@ public:
 	AVL(node<T> new_root):binary_tree<T>(new_root){};
 
 	int balance_factor(node<T> * parent){
+		cout<<"balanced factor"<<endl;
 		return (this->find_depth(parent->lhs, 0) - this->find_depth(parent->rhs, 0));
 	}
 	
 	bool is_balanced(node<T> * parent){
 		int factor = balance_factor(parent);
+		cout<<"here"<<endl;
 		return (factor <= 1 && factor >= -1);
 	}
 
 	void rebalance(node<T> * parent){
-		if(parent)
+		cout<<parent<<endl;
+//		cout<<parent<<" "<<!is_balanced(parent)<<endl;
+		if(parent){
+			cout<<"rebalance 1 "<<is_balanced(parent)<<endl;
 			if(!is_balanced(parent)){
+				cout<<"inside rebalance "<<balance_factor(parent)<<endl;
 				if(balance_factor(parent) < -1){
 //					node<T> * tmp_father = parent->father;
+					cout<<" _1_ "<<endl;
 					parent->father->rhs = parent->lhs;
-					parent->lhs->father = parent->father;
-//					parent->father = parent->father->father;
+					cout<<" _2_ "<<endl;
+					if(parent->lhs /*&& parent->lhs->father*/)
+						parent->lhs->father = parent->father;
+					cout<<" _3_ "<<endl;
+					if(parent->father->father)
+						if(parent->father->father->data > parent->data)
+							parent->father->father->rhs = parent;
+						else
+							parent->father->father->lhs = parent;
+					cout<<" _4_ "<<endl;
 					parent->lhs = parent->father;
+					cout<<" _5_ "<<endl;
+					//if(parent->father->father)
 					parent->father = parent->father->father;
+					cout<<" _6_ "<<endl;
 					parent->lhs->father = parent;
 				}
 				else{
 					parent->father->lhs = parent->rhs;
-					parent->rhs->father = parent->father;
+					if(parent->rhs /*&& parent->rhs->father*/)
+						parent->rhs->father = parent->father;
+					if(parent->father->father)
+						if(parent->father->father->data > parent->data)
+                                                        parent->father->father->rhs = parent;
+                                                else
+                                                        parent->father->father->lhs = parent;
 					parent->rhs = parent->father;
 					parent->father = parent->father->father;
 					parent->rhs->father = parent;
 				}
 			}
+			cout<<"to rebalance"<<endl;
+//			cout<<"to rebalance father "<<parent->father<<endl;
+//			cout<<"to rebalance lhs "<<parent->father->lhs<<endl;
+//			cout<<"to rebalance rhs "<<parent->father->rhs<<endl;
+			rebalance(parent->father);
+		}
 	}
 
 	virtual bool insert(const T &value){
@@ -310,9 +344,10 @@ public:
 
                         this->update_tree_height(returned_node->height);
                         this->count++;
-
+			cout<<"inserted data "<<returned_node->data<<endl;
+			cout<<"_hot "<<_hot<<endl;
 			rebalance(_hot);
-
+			cout<<"balanced!"<<endl;
                  	return true;       
                 }
 	}
@@ -344,7 +379,7 @@ int main(){
 		bool b_return = tree->insert((*it)->get_station_index());
 //		cout<<(*it)->get_station_index()<<"  "<<b_return<<endl;
 	}
-
+	cout<<"done!"<<endl;
 //	tree->traverse_inorder(tree->root);
 	cout<<"Tree height is "<<tree->tree_height<<endl;
 	node<int> *returned_node = tree->search(0);
